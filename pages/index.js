@@ -84,6 +84,7 @@ export default function Home() {
           >
             {pokemons.map((p) => (
               <div
+                className="poke-card"
                 key={p.id}
                 style={{
                   display: "flex",
@@ -94,9 +95,10 @@ export default function Home() {
                   marginTop: "1rem",
                   borderRadius: "0.5rem",
                   boxShadow: "0 0 10px white",
+                  minWidth: "10rem",
                 }}
               >
-                <Image src={p.imageUrl} width={200} height={200} />
+                <Image src={p.imageUrl} width={130} height={130} />
                 <p style={{ color: "#333", fontWeight: "bold" }}>
                   {p.name.toUpperCase()}
                 </p>
