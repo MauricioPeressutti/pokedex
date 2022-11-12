@@ -68,7 +68,9 @@ export default function Home() {
           Ya se han atrapado {pokemons.length}
         </span>
         <input onChange={handleChange} value={pokemonName} />
-        <button onClick={catchPokemon}>Atrapar</button>
+        <button onClick={catchPokemon} style={{ marginBottom: "2rem" }}>
+          Atrapar
+        </button>
 
         {loading === "catching" && <p>Intentando atrapar a {pokemonName}</p>}
         {loading === "fetching" && <p>Obteniendo pokemons...</p>}
@@ -112,8 +114,21 @@ export default function Home() {
                 >
                   #{p.order}
                 </b>
-                <Image src={p.imageUrl} width={130} height={130} alt={p.name} />
-                <p style={{ color: "#333", fontWeight: "bold" }}>
+                <div style={{ marginTop: "2rem" }}>
+                  <Image
+                    src={p.imageUrl}
+                    width={130}
+                    height={130}
+                    alt={p.name}
+                  />
+                </div>
+                <p
+                  style={{
+                    color: "#333",
+                    fontWeight: "bold",
+                    margin: "0 0 1rem 0",
+                  }}
+                >
                   {p.name.toUpperCase()}
                 </p>
               </div>
