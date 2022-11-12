@@ -23,10 +23,10 @@ export default function Home() {
 
     if (res.ok) {
       const resJSON = await res.json()
-
       await fetchPokemons()
-
       console.log({ resJSON })
+    } else {
+      await fetchPokemons()
     }
   }
 
