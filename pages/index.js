@@ -6,12 +6,15 @@ import styles from "../styles/Home.module.css"
 export default function Home() {
   const [pokemonName, setPokemonName] = useState("")
   const [pokemons, setPokemons] = useState([])
+  const [loading, setLoading] = useState("")
 
-  const handleChange = ({ target }) => setPokemonName(target.value)
+  const handleChange = ({ target }) =>
+    setPokemonName(target.value.toLowerCase())
 
   const catchPokemon = async () => {
     if (!pokemonName) return
-    console.log({ pokemonName })
+
+    setLoading("catching")
     const res = await fetch(`/api/pokemon`, {
       method: "POST",
       body: JSON.stringify({ name: pokemonName }),
@@ -20,16 +23,20 @@ export default function Home() {
 
     if (res.ok) {
       const resJSON = await res.json()
-      fetchPokemons()
+
+      await fetchPokemons()
+
       console.log({ resJSON })
     }
   }
 
   const fetchPokemons = async () => {
+    setLoading("fetching")
     const res = await fetch("/api/pokemon")
 
     if (res.ok) {
       const { data } = await res.json()
+      setLoading("")
       setPokemons(data)
     } else {
       console.log("Hubo un error al obtener los pokemons")
@@ -60,38 +67,43 @@ export default function Home() {
         >
           Ya se han atrapado {pokemons.length}
         </span>
-        <input onChange={handleChange} />
+        <input onChange={handleChange} value={pokemonName} />
         <button onClick={catchPokemon}>Atrapar</button>
-        <div
-          style={{
-            display: "flex",
-            gap: "1rem",
-            flexWrap: "wrap",
-            martinTop: "1.5rem",
-            maxWidth: "70rem",
-          }}
-        >
-          {pokemons.map((p) => (
-            <div
-              key={p.id}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                background: "white",
-                marginTop: "1rem",
-                borderRadius: "0.5rem",
-                boxShadow: "0 0 10px white",
-              }}
-            >
-              <Image src={p.imageUrl} width={200} height={200} />
-              <p style={{ color: "#333", fontWeight: "bold" }}>
-                {p.name.toUpperCase()}
-              </p>
-            </div>
-          ))}
-        </div>
+
+        {loading === "catching" && <p>Intentando atrapar a {pokemonName}</p>}
+        {loading === "fetching" && <p>Obteniendo pokemons...</p>}
+        {!loading && (
+          <div
+            style={{
+              display: "flex",
+              gap: "1rem",
+              flexWrap: "wrap",
+              martinTop: "1.5rem",
+              maxWidth: "70rem",
+            }}
+          >
+            {pokemons.map((p) => (
+              <div
+                key={p.id}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: "white",
+                  marginTop: "1rem",
+                  borderRadius: "0.5rem",
+                  boxShadow: "0 0 10px white",
+                }}
+              >
+                <Image src={p.imageUrl} width={200} height={200} />
+                <p style={{ color: "#333", fontWeight: "bold" }}>
+                  {p.name.toUpperCase()}
+                </p>
+              </div>
+            ))}
+          </div>
+        )}
       </main>
     </div>
   )

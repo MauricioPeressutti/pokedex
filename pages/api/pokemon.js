@@ -33,7 +33,9 @@ async function createPokemon(req, res) {
     })
     console.log({ foundPokemon })
     if (!foundPokemon) {
-      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
+      const response = await fetch(
+        `https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`
+      )
       console.log({ ok: response.ok })
       if (response.ok) {
         const pokemon = await response.json()
