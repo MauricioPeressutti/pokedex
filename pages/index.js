@@ -98,7 +98,7 @@ export default function Home() {
                   minWidth: "10rem",
                 }}
               >
-                <Image src={p.imageUrl} width={130} height={130} />
+                <Image src={p.imageUrl} width={130} height={130} alt={p.name} />
                 <p style={{ color: "#333", fontWeight: "bold" }}>
                   {p.name.toUpperCase()}
                 </p>
