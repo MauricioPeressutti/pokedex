@@ -101,6 +101,17 @@ export default function Home() {
                   minWidth: "10rem",
                 }}
               >
+                <b
+                  style={{
+                    position: "absolute",
+                    left: "0.3rem",
+                    top: "0.3rem",
+                    fontSize: "1.1rem",
+                    color: "#333",
+                  }}
+                >
+                  #{p.order}
+                </b>
                 <Image src={p.imageUrl} width={130} height={130} alt={p.name} />
                 <p style={{ color: "#333", fontWeight: "bold" }}>
                   {p.name.toUpperCase()}
