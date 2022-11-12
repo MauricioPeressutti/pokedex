@@ -2,6 +2,7 @@ import Head from "next/head"
 import Image from "next/image"
 import { useEffect, useState } from "react"
 import styles from "../styles/Home.module.css"
+import Swal from "sweetalert2"
 
 export default function Home() {
   const [pokemonName, setPokemonName] = useState("")
@@ -21,11 +22,13 @@ export default function Home() {
       "Content-Type": "application/json",
     })
 
+    const resJSON = await res.json()
     if (res.ok) {
-      const resJSON = await res.json()
+      Swal.fire("¡Excelente!", resJSON.message, "success")
       await fetchPokemons()
       console.log({ resJSON })
     } else {
+      Swal.fire("UPS!", resJSON.message, "info")
       await fetchPokemons()
     }
   }
@@ -61,11 +64,11 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h3>¿Qué pokemón deseas atrapar?</h3>
+        <h1>¿Qué pokemón deseas atrapar?</h1>
         <span
           style={{ color: "grey", marginBottom: "1rem", marginTop: "-1rem" }}
         >
-          Ya se han atrapado {pokemons.length}
+          Ya se han atrapado {pokemons?.length}
         </span>
         <input onChange={handleChange} value={pokemonName} />
         <button onClick={catchPokemon} style={{ marginBottom: "2rem" }}>
@@ -108,7 +111,7 @@ export default function Home() {
                     position: "absolute",
                     left: "0.3rem",
                     top: "0.3rem",
-                    fontSize: "1.1rem",
+                    fontSize: "1.3rem",
                     color: "#333",
                   }}
                 >

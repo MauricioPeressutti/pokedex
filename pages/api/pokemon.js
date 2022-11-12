@@ -47,12 +47,21 @@ async function createPokemon(req, res) {
             imageUrl: pokemon.sprites.front_default,
           },
         })
-        return res.status(201).json({ ok: true, data: newPokemon })
+        return res.status(201).json({
+          ok: true,
+          data: newPokemon,
+          message: `Atrapaste con éxito a ${name} 🥳`,
+        })
       } else {
-        return res
-          .status(400)
-          .json({ ok: false, message: "Ese pokemón no existe" })
+        return res.status(400).json({
+          ok: false,
+          message: `No existe ningún pokemón de nombre ${name} 🤔`,
+        })
       }
+    } else {
+      res
+        .status(400)
+        .json({ ok: false, message: `${name} ya ha sido atrapado! 😵‍💫` })
     }
   } catch (error) {
     console.error("Request error", error)
