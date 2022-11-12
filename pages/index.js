@@ -55,9 +55,22 @@ export default function Home() {
 
       <main className={styles.main}>
         <h3>¿Qué pokemón deseas atrapar?</h3>
+        <span
+          style={{ color: "grey", marginBottom: "1rem", marginTop: "-1rem" }}
+        >
+          Ya se han atrapado {pokemons.length}
+        </span>
         <input onChange={handleChange} />
         <button onClick={catchPokemon}>Atrapar</button>
-        <div style={{ martinTop: "1.5rem" }}>
+        <div
+          style={{
+            display: "flex",
+            gap: "1rem",
+            flexWrap: "wrap",
+            martinTop: "1.5rem",
+            maxWidth: "70rem",
+          }}
+        >
           {pokemons.map((p) => (
             <div
               key={p.id}

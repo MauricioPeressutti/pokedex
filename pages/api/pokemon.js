@@ -7,7 +7,13 @@ export default async function handler(req, res) {
   const METHOD = req.method
   console.log({ req })
   if (METHOD === "GET") {
-    const pokemons = await prisma.pokemon.findMany()
+    const pokemons = await prisma.pokemon.findMany({
+      orderBy: [
+        {
+          order: "asc",
+        },
+      ],
+    })
     console.log({ pokemons })
     return res.status(200).json({ ok: true, data: pokemons })
   }
