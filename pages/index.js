@@ -76,9 +76,12 @@ export default function Home() {
           <div
             style={{
               display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
               gap: "1rem",
               flexWrap: "wrap",
-              martinTop: "1.5rem",
+              martinTop: "2.5rem",
+              width: "100%",
               maxWidth: "70rem",
             }}
           >
@@ -94,7 +97,7 @@ export default function Home() {
                   background: "white",
                   marginTop: "1rem",
                   borderRadius: "0.5rem",
-                  boxShadow: "0 0 10px white",
+                  boxShadow: "0 0 5px white",
                   minWidth: "10rem",
                 }}
               >
