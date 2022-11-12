@@ -15,6 +15,34 @@ a {
   box-sizing: border-box;
 }
 
+
+input {
+  padding: 0.5rem 1rem;
+  outline: none;
+  border: 1px solid rgba(80, 80, 80, 1);
+  border-radius: 0.3rem;
+  min-width: 20rem;
+}
+
+button {
+  padding: 0.5rem;
+  border: none;
+  margin-top: 1rem;
+  border-radius: 0.3rem;
+  font-size: 1.2rem;
+  background-color: #E83E34;
+}
+
+button:hover {
+  opacity: 0.8;
+  cursor: pointer;
+ 
+}
+
+h2 {
+  margin-bottom: 0.5rem;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
