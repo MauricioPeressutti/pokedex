@@ -53,92 +53,111 @@ export default function Home() {
   console.log({ pokemons })
 
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Pokedex</title>
-        <meta
-          name="description"
-          content="Pokedex con PlanetScale, Prisma y Next JS"
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <>
+      <div className={styles.container}>
+        <Head>
+          <title>Pokedex</title>
+          <meta
+            name="description"
+            content="Pokedex con PlanetScale, Prisma y Next JS"
+          />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
 
-      <main className={styles.main}>
-        <h1>¿Qué pokemón deseas atrapar?</h1>
-        <span
-          style={{ color: "grey", marginBottom: "1rem", marginTop: "-1rem" }}
-        >
-          Ya se han atrapado {pokemons?.length}
-        </span>
-        <input onChange={handleChange} value={pokemonName} />
-        <button onClick={catchPokemon} style={{ marginBottom: "2rem" }}>
-          Atrapar
-        </button>
-
-        {loading === "catching" && <p>Intentando atrapar a {pokemonName}</p>}
-        {loading === "fetching" && <p>Obteniendo pokemons...</p>}
-        {!loading && (
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "1rem",
-              flexWrap: "wrap",
-              martinTop: "2.5rem",
-              width: "100%",
-              maxWidth: "70rem",
-            }}
+        <main className={styles.main}>
+          <h1 style={{ textAlign: "center" }}>¿Qué pokemón deseas atrapar?</h1>
+          <span
+            style={{ color: "grey", marginBottom: "1rem", marginTop: "-1rem" }}
           >
-            {pokemons.map((p) => (
-              <div
-                className="poke-card"
-                key={p.id}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  background: "white",
-                  marginTop: "1rem",
-                  borderRadius: "0.5rem",
-                  boxShadow: "0 0 5px white",
-                  minWidth: "10rem",
-                }}
-              >
-                <b
+            Ya se han atrapado {pokemons?.length}
+          </span>
+          <input onChange={handleChange} value={pokemonName} />
+          <button onClick={catchPokemon} style={{ marginBottom: "2rem" }}>
+            Atrapar
+          </button>
+
+          {loading === "catching" && <p>Intentando atrapar a {pokemonName}</p>}
+          {loading === "fetching" && <p>Obteniendo pokemons...</p>}
+          {!loading && (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "0.3rem 1rem",
+                flexWrap: "wrap",
+                martinTop: "2.5rem",
+                width: "100%",
+                maxWidth: "70rem",
+              }}
+            >
+              {pokemons.map((p) => (
+                <div
+                  className="poke-card"
+                  key={p.id}
                   style={{
-                    position: "absolute",
-                    left: "0.3rem",
-                    top: "0.3rem",
-                    fontSize: "1.3rem",
-                    color: "#333",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    background: "white",
+                    marginTop: "1rem",
+                    borderRadius: "0.5rem",
+                    boxShadow: "0 0 5px white",
                   }}
                 >
-                  #{p.order}
-                </b>
-                <div style={{ marginTop: "2rem" }}>
-                  <Image
-                    src={p.imageUrl}
-                    width={130}
-                    height={130}
-                    alt={p.name}
-                  />
+                  <b
+                    style={{
+                      position: "absolute",
+                      left: "0.3rem",
+                      top: "0.3rem",
+                      fontSize: "1.3rem",
+                      color: "#333",
+                    }}
+                  >
+                    #{p.order}
+                  </b>
+                  <div style={{ marginTop: "2rem" }}>
+                    <Image
+                      src={p.imageUrl}
+                      width={130}
+                      height={130}
+                      alt={p.name}
+                    />
+                  </div>
+                  <p
+                    style={{
+                      color: "#333",
+                      fontWeight: "bold",
+                      margin: "0 0 1rem 0",
+                    }}
+                  >
+                    {p.name.toUpperCase()}
+                  </p>
                 </div>
-                <p
-                  style={{
-                    color: "#333",
-                    fontWeight: "bold",
-                    margin: "0 0 1rem 0",
-                  }}
-                >
-                  {p.name.toUpperCase()}
-                </p>
-              </div>
-            ))}
-          </div>
-        )}
-      </main>
-    </div>
+              ))}
+            </div>
+          )}
+        </main>
+      </div>
+      <style jsx>{`
+        .poke-card {
+          transition: all 0.2s ease-in-out;
+          position: relative;
+          min-width: 10rem;
+        }
+
+        .poke-card:hover {
+          cursor: pointer;
+          transform: scale(1.05);
+        }
+
+        @media (max-width: 420px) {
+          .poke-card {
+            min-width: 80%;
+          }
+        }
+      `}</style>
+    </>
   )
 }

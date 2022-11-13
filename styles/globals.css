@@ -14,15 +14,6 @@ a {
 * {
   box-sizing: border-box;
 }
-.poke-card {
-  transition: all 0.2s ease-in-out ;
-  position: relative;
-}
-
-.poke-card:hover {
-  cursor: pointer;
-  transform: scale(1.05);
-}
 
 
 input {
@@ -58,3 +49,4 @@ body {
   color: white;
   background: #222;
 }
+
