@@ -1,11 +1,11 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { PrismaClient } from "@prisma/client"
+import { getSession } from "next-auth/react"
 
 const prisma = new PrismaClient()
 
 export default async function handler(req, res) {
   const METHOD = req.method
-  console.log({ req })
   if (METHOD === "GET") {
     const pokemons = await prisma.pokemon.findMany({
       orderBy: [
@@ -14,7 +14,6 @@ export default async function handler(req, res) {
         },
       ],
     })
-    console.log({ pokemons })
     return res.status(200).json({ ok: true, data: pokemons })
   }
 
@@ -24,6 +23,15 @@ export default async function handler(req, res) {
 }
 
 async function createPokemon(req, res) {
+  const session = await getSession({ req })
+  console.log({ session })
+  if (!session) {
+    return res.status(403).json({
+      ok: false,
+      message:
+        "Lo siento, para atrapar a un pokemón, primero debes iniciar sesión",
+    })
+  }
   const { name } = JSON.parse(req.body)
   try {
     const foundPokemon = await prisma.pokemon.findFirst({
@@ -31,20 +39,20 @@ async function createPokemon(req, res) {
         name,
       },
     })
-    console.log({ foundPokemon })
     if (!foundPokemon) {
       const response = await fetch(
         `https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`
       )
-      console.log({ ok: response.ok })
       if (response.ok) {
         const pokemon = await response.json()
-        console.log({ pokemon })
+
         const newPokemon = await prisma.pokemon.create({
           data: {
             name: pokemon.name,
             order: pokemon.order,
             imageUrl: pokemon.sprites.front_default,
+            userEmail: session.user.email,
+            userImageUrl: session.user.image,
           },
         })
         return res.status(201).json({
