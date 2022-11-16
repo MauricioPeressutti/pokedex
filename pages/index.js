@@ -3,14 +3,11 @@ import Image from "next/image"
 import { useEffect, useState } from "react"
 import styles from "../styles/Home.module.css"
 import Swal from "sweetalert2"
-import { useSession, signIn, signOut } from "next-auth/react"
 
 export default function Home() {
   const [pokemonName, setPokemonName] = useState("")
   const [pokemons, setPokemons] = useState([])
   const [loading, setLoading] = useState("")
-  const session = useSession()
-  console.log({ session })
 
   const handleChange = ({ target }) =>
     setPokemonName(target.value.toLowerCase())
@@ -68,24 +65,6 @@ export default function Home() {
         </Head>
 
         <main className={styles.main}>
-          <div
-            style={{
-              display: "flex",
-              width: "100%",
-              justifyContent: "flex-end",
-            }}
-          >
-            {session.status === "authenticated" ? (
-              <button onClick={() => signOut()}>Cerrar sessión</button>
-            ) : (
-              <button
-                style={{ background: "rgb(8,122,174)", fontSize: "1rem" }}
-                onClick={() => signIn("github")}
-              >
-                Iniciar sessión
-              </button>
-            )}
-          </div>
           <h1 style={{ textAlign: "center" }}>¿Qué pokemón deseas atrapar?</h1>
           <span
             style={{ color: "grey", marginBottom: "1rem", marginTop: "-1rem" }}
@@ -138,33 +117,6 @@ export default function Home() {
                   >
                     #{p.order}
                   </b>
-                  {!!p?.userImageUrl && (
-                    <div
-                      style={{
-                        position: "absolute",
-                        right: "0.3rem",
-                        top: "0.3rem",
-                        fontSize: "1.3rem",
-                        color: "#333",
-                        borderRadius: "10rem",
-                        overflow: "hidden",
-                      }}
-                    >
-                      <div
-                        style={{
-                          position: "relative",
-                          width: "1.65rem",
-                          height: "1.65rem",
-                        }}
-                      >
-                        <Image
-                          src={p?.userImageUrl}
-                          layout="fill"
-                          alt={p.userEmail}
-                        />
-                      </div>
-                    </div>
-                  )}
                   <div style={{ marginTop: "2rem" }}>
                     <Image
                       src={p.imageUrl}

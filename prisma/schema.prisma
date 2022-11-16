@@ -13,10 +13,8 @@ datasource db {
 }
 
 model Pokemon {
-  id           Int     @id @default(autoincrement())
-  name         String  @unique
-  order        Int
-  imageUrl     String?
-  userEmail    String  @default("")
-  userImageUrl String  @default("")
+  id       Int     @id @default(autoincrement())
+  name     String  @unique
+  order    Int
+  imageUrl String?
 }
