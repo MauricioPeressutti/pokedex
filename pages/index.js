@@ -50,8 +50,6 @@ export default function Home() {
     fetchPokemons()
   }, [])
 
-  console.log({ pokemons })
-
   return (
     <>
       <div className={styles.container}>
@@ -65,7 +63,9 @@ export default function Home() {
         </Head>
 
         <main className={styles.main}>
-          <h1 style={{ textAlign: "center" }}>¿Qué pokemón deseas atrapar?</h1>
+          <h1 style={{ textAlign: "center" }}>
+            ¿Qué pokemón deseas atrapar? 😮
+          </h1>
           <span
             style={{ color: "grey", marginBottom: "1rem", marginTop: "-1rem" }}
           >
