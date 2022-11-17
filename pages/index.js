@@ -62,7 +62,7 @@ export default function Home() {
             name="description"
             content="Pokedex con PlanetScale, Prisma y Next JS"
           />
-          <link rel="icon" href="/favicon.ico" />
+          <link rel="icon" href="/pokeball.png" />
         </Head>
 
         <main className={styles.main}>
