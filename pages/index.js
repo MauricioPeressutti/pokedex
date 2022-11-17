@@ -11,7 +11,6 @@ export default function Home() {
   const [loading, setLoading] = useState("")
 
   const session = useSession()
-  console.log({ session })
 
   const handleChange = ({ target }) =>
     setPokemonName(target.value.toLowerCase())
