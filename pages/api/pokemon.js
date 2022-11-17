@@ -1,7 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { PrismaClient } from "@prisma/client"
-import { unstable_getServerSession } from "next-auth/next"
-import { authOptions } from "./auth/[...nextauth]"
+import { getSession } from "next-auth/react"
 const prisma = new PrismaClient()
 
 export default async function handler(req, res) {
@@ -25,7 +24,7 @@ export default async function handler(req, res) {
 async function createPokemon(req, res) {
   const { name } = JSON.parse(req.body)
 
-  const session = await unstable_getServerSession(req, res, authOptions)
+  const session = await getSession({ req })
   if (!session) {
     return res.status(403).json({
       ok: false,
