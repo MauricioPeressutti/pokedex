@@ -2,7 +2,7 @@
 
 export default function handler(req, res) {
   console.log({ body: req.body })
-  const { num1, num2 } = JSON.parse(req.body)
+  const { num1, num2 } = req.body
   console.log({ num1, num2 })
-  return num1 + num2
+  return res.status(200).json(num1 + num2)
 }
